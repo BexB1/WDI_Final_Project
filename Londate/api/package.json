@@ -1,0 +1,29 @@
+{
+  "name": "express-boilerplate",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.0",
+    "mongoose-beautiful-unique-validation": "^5.0.1",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "supertest": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Becky Bolton",
+  "license": "ISC",
+  "directories": {
+    "test": "tests"
+  },
+  "description": ""
+}

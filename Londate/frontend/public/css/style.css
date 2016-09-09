@@ -1,0 +1,96 @@
+body {
+  margin: 0 auto;
+  text-align: center;
+
+  font-family: 'Lato', sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* HELPER CLASSES*/
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+  max-width: 100%;
+}
+
+.shader {
+  min-width: 100%;
+  height: 100vh;
+  left: -1px;
+  
+  position: absolute;
+  background: -webkit-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3));
+  z-index: 1;
+}
+
+
+/* HOMEPAGE */
+
+.home-wrapper {
+  min-width: 100%;
+  height: 100vh;
+
+  background: url("../images/Londate-main-bg.jpeg") no-repeat center center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* TYPOGRAPHY */
+
+h1 {
+  color: #000;
+}
+
+.title {
+  color: #FFF;
+  font-size: 100px;
+  letter-spacing: 0.2em;
+  font-family: 'Oswald', sans-serif;
+}
+
+h2 {
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #FFF;
+}
+
+/* BUTTONS */
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.facebook { background: #435f9c; }
+.twitter  { background: #00aced; }
+
+
+
+#wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.card img {
+  max-width: 350px;
+}
