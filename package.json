@@ -1,5 +1,5 @@
 {
-  "name": "express-boilerplate",
+  "name": "wdi_final_project",
   "version": "1.0.0",
   "main": "app.js",
   "dependencies": {
@@ -11,7 +11,9 @@
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
     "mongoose-beautiful-unique-validation": "^5.0.1",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -26,5 +28,13 @@
   "directories": {
     "test": "tests"
   },
-  "description": ""
+  "description": "My final project for WDI; a MEAN stack dating app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BexB1/WDI_Final_Project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BexB1/WDI_Final_Project/issues"
+  },
+  "homepage": "https://github.com/BexB1/WDI_Final_Project#readme"
 }

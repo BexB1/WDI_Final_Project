@@ -7,7 +7,9 @@ var userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
   age: { type: Number, required: false },
-  location: { type: String, required: false }
+  location: { type: String, required: false },
+  facebookId: Number,
+  twitterId: Number
 });
 
 userSchema.set('toJSON', {

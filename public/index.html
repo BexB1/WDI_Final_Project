@@ -8,33 +8,44 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-resource.min.js"></script>
     <script src="//npmcdn.com/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+    <script src="//cdn.jsdelivr.net/satellizer/0.13.1/satellizer.min.js"></script>
 
-    <script src="/public/js/app.js"></script>
-    <script src="/public/js/controllers/main.js"></script>
-    <script src="/public/js/controllers/login.js"></script>
-    <script src="/public/js/controllers/register.js"></script>
-    <script src="/public/js/controllers/users.js"></script>
-    <script src="/services/authInterceptor.js"></script>
-    <script src="/services/tokenService.js"></script>
+    <script src="/js/client.js"></script>
+
+    <script src="/js/controllers/events/index.js"></script>
+    <script src="/js/controllers/main.js"></script>
+    <script src="/js/controllers/map.js"></script>
+    <script src="/js/controllers/login.js"></script>
+    <script src="/js/controllers/register.js"></script>
+    <script src="/js/controllers/users.js"></script>
+    <script src="/js/controllers/users/show.js"></script>
+
+    <script src="/js/services/authInterceptor.js"></script>
+    <script src="/js/services/tokenService.js"></script>
+    <script src="/js/services/meetup.js"></script>
+
+    <!-- DIRECTIVES -->
+    <script src="/js/directives/gmap.js"></script>
 
     <!-- Models -->
-<!--     <script src="/js/models/user.js"></script> -->
-
+    <script src="/js/models/user.js"></script>
 
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
 
     <!-- CUSTOM CSS -->
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Oswald:700" rel="stylesheet">
+
 
   </head>
 
   <body ng-controller="MainController as main">
     <header>
       <nav class="navbar navbar-light bg-faded">
+      <img src="{{ main.currentUser.avatar }}" ng-if="main.currentUser" />
         <a class="navbar-brand" ui-sref="home">Londate</a>
         <ul class="nav navbar-nav">
           <li class="nav-item" ui-sref-active="active">
@@ -50,7 +61,10 @@
             <a class="nav-link" ui-sref="login">Login</a>
           </li>
           <li class="nav-item" ui-sref-active="active" ng-if="main.currentUser">
-            <a class="nav-link" ui-sref="users">Users</a>
+            <a class="nav-link" ui-sref="usersIndex">Users</a>
+          </li>
+          <li class="nav-item" ui-sref-active="active">
+            <a class="nav-link" ui-sref="events">Events</a>
           </li>
           <li class="nav-item" ng-if="main.currentUser" ng-click="main.logout()">
             <a class="nav-link">Logout</a>

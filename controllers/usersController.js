@@ -1,4 +1,6 @@
+var jwt = require('jsonwebtoken');
 var User = require('../models/user');
+var secret = require('../config/tokens').secret;
 
 function userIndex(req, res) {
   User.find(function(err, user) {

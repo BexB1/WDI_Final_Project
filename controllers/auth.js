@@ -1,5 +1,5 @@
-var User = require('../models/user');
 var jwt = require('jsonwebtoken');
+var User = require('../models/user');
 var secret = require('../config/tokens').secret;
 
 function register(req, res) {
@@ -10,7 +10,7 @@ function register(req, res) {
     var token = jwt.sign(payload, secret, { expiresIn: 60*60*24 });
 
     return res.status(200).json({
-      message: "Success",
+      message: "Thanks for registering!",
       token: token
     });
   });
@@ -27,7 +27,7 @@ function login(req, res) {
     var token = jwt.sign(payload, secret, { expiresIn: 60*60*24 });
 
     return res.status(200).json({
-      message: "Success",
+      message: "Login successful!",
       token: token
     });
   });

@@ -2,8 +2,12 @@ var router = require('express').Router();
 var jwt = require('jsonwebtoken');
 var secret = require('../config/tokens').secret;
 
-var authController = require('../controllers/authentications');
+var authController = require('../controllers/auth');
 var usersController = require('../controllers/usersController');
+var oauthController = require('../controllers/oauth');
+var meetupController = require('../controllers/meetup');
+
+router.post('/oauth/facebook', oauthController.facebook);
 
 // middleware to check for token
 function secureRoute(req, res, next) {
@@ -18,6 +22,9 @@ function secureRoute(req, res, next) {
     next();
   });
 }
+
+router.route('/meetups')
+  .get(meetupController.getEvents);
 
 router.route('/users')
   .all(secureRoute)

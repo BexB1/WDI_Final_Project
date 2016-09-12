@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 var User = require('../models/user');
+var bluebird = require('bluebird');
 
-var databaseUri = require('../config/db')('development');
+var databaseUri = require('../config/db')(process.env.NODE_ENV || "development");
 mongoose.connect(databaseUri);
+mongoose.Promise = bluebird;
 
 User.collection.drop();
 
