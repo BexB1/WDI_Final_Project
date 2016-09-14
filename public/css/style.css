@@ -103,6 +103,16 @@ button {
 
 /* EVENTS PAGE */
 
-#map {
-  min-height: 200px;
+.g-map {
+  min-height: 90vh;
+}
+
+#searchbox {
+  z-index: 10;
+  position: absolute;
+  padding: 10px;
+  bottom: 0px;
+  height: 15%;
+  width: 100%;
+  background-color: rgba(194,102,255,0.9);
 }

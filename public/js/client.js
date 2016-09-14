@@ -45,7 +45,12 @@ function Router($stateProvider, $urlRouterProvider) {
     .state("userShow", {
       url: "/users/:id",
       templateUrl: "/templates/users/userShow.html",
-      controller: "UsersShowController as users"
+      controller: "UsersShowController as user"
+    })    
+    .state("userEdit", {
+      url: "/users/:id/edit",
+      templateUrl: "/templates/users/edit.html",
+      controller: "UsersEditController as user"
     })
     .state("events", {
       url: "/events",

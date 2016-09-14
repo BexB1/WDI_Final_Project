@@ -8,39 +8,87 @@ function gMap() {
     replace: true,
     template: '<div class="g-map"></div>',
     scope: {
-      center: '='
+      center: '=',
+      markers: '='
     },
     link: function(scope, element) {
+
+      var eventMarkers = [];
 
       if(!scope.center) {
         throw new Error("You must include a `center` attribute in your g-map directive");
       }
 
-      var map = new google.maps.Map(document.getElementById("map"), 
-      {
+      var map = new google.maps.Map(element[0], {
         center: scope.center,
         zoom: 14,
-        styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+        disableDefaultUI: true
       });
 
-      map.addListener('click', function(e) {
-        var marker = new google.maps.Marker({
-          position: e.latLng,
-          map: map, 
-          animation: google.maps.Animation.BOUNCE,
-          icon: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+      google.maps.Circle.prototype.contains = function(latLng) {
+        return this.getBounds().contains(latLng) && google.maps.geometry.spherical.computeDistanceBetween(this.getCenter(), latLng) <= this.getRadius();
+      }
+
+      var playerMarker = new google.maps.Marker({
+        position: map.getCenter(),
+        map: map, 
+        icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+        draggable: true
+      })
+
+      var playerCircle = new google.maps.Circle({
+        map: map,
+        radius: 1609.34,
+        strokeColor: '#ffffff',
+        strokeOpacity: 0.2,
+        fillColor: '#66ff66',
+        fillOpacity: 0.3,
+      })
+
+      playerCircle.bindTo('center', playerMarker, 'position');
+      var playerCircleBounds = playerCircle.getBounds();
+
+      scope.$watch('markers.length', updateMarkers);
+
+      function updateMarkers() {
+
+        playerMarker.setPosition(playerMarker.getPosition());
+
+        eventMarkers.forEach(function(eventMarkers) {
+          eventMarkers.setMap(null);
         });
 
-          marker.addListener('click', function() {
-            this.setAnimation(null);
-          });
+        scope.markers.forEach(function(location) {
+
+          if(location.venue) {
+            var eventMarker = new google.maps.Marker({
+              position: { lat: location.venue.lat, lng: location.venue.lon },
+              map: map,
+              animation: google.maps.Animation.DROP
+            });
+
+            eventMarker.addListener('click', function() {
+              console.log(location);
+            });
+
+            eventMarkers.push(eventMarker);
+          }
         });
+      }
 
       scope.$watch('center.lat', updateMap);
       scope.$watch('center.lng', updateMap);
 
+      // Reset markers on drag end
+
+      google.maps.event.addListener(playerMarker, 'dragend', function() {
+        updateMarkers();
+      });
+
       function updateMap() {
+        console.log("Updating map center", scope.center);
         map.panTo(scope.center);
+        playerMarker.setPosition(scope.center);
       }
     }
   }
