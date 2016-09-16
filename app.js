@@ -6,6 +6,7 @@ var morgan          = require('morgan');
 var mongoose = require('mongoose');
 var bluebird = require('bluebird');
 var cors = require('cors');
+var moment = require('moment');
 
 var port = process.env.PORT || 3000;
 

@@ -7,7 +7,6 @@ var usersController = require('../controllers/usersController');
 var oauthController = require('../controllers/oauth');
 var meetupController = require('../controllers/meetup');
 
-router.post('/oauth/facebook', oauthController.facebook);
 
 // middleware to check for token
 function secureRoute(req, res, next) {
@@ -23,8 +22,11 @@ function secureRoute(req, res, next) {
   });
 }
 
-router.route('/meetups')
+router.route('/meetups/events')
   .get(meetupController.getEvents);
+
+router.route('/meetups/categories')
+  .get(meetupController.getCategories);
 
 router.route('/users')
   .all(secureRoute)
@@ -40,6 +42,7 @@ router.route('/users/:id')
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
+router.post('/oauth/facebook', oauthController.facebook);
 
 // export the router
 module.exports = router;

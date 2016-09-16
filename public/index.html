@@ -23,7 +23,6 @@
     <script src="/js/controllers/users/show.js"></script>
     <script src="/js/controllers/users/edit.js"></script>
 
-    <script src="/js/services/authInterceptor.js"></script>
     <script src="/js/services/tokenService.js"></script>
     <script src="/js/services/meetup.js"></script>
 
@@ -48,14 +47,15 @@
   <body ng-controller="MainController as main">
     <header>
       <nav class="navbar navbar-light bg-faded">
-      <img ng-src="{{ main.currentUser.avatar }}" ng-if="main.currentUser" />
+
+      <div class="profile-pic">
+        <img ng-src="{{ main.currentUser.avatar }}" ng-if="main.currentUser" />
+      </div>
+
         <a class="navbar-brand" ui-sref="home">Londate</a>
         <ul class="nav navbar-nav">
           <li class="nav-item" ui-sref-active="active">
             <a class="nav-link" ui-sref="home">Home</a>
-          </li>
-          <li class="nav-item" ui-sref-active="active" ng-if="main.currentUser">
-            <a class="nav-link" ui-sref="userEdit">My Profile</a>
           </li>
           <li class="nav-item" ui-sref-active="active" ng-if="!main.currentUser">
             <a class="nav-link" ui-sref="register">Register</a>
@@ -63,11 +63,11 @@
           <li class="nav-item" ui-sref-active="active" ng-if="!main.currentUser">
             <a class="nav-link" ui-sref="login">Login</a>
           </li>
-          <li class="nav-item" ui-sref-active="active" ng-if="main.currentUser">
-            <a class="nav-link" ui-sref="usersIndex">Users</a>
+          <li class="nav-item" ui-sref-active="active">
+            <a class="nav-link" ui-sref="events">Find Events</a>
           </li>
           <li class="nav-item" ui-sref-active="active">
-            <a class="nav-link" ui-sref="events">Events</a>
+            <a class="nav-link" ui-sref="events">My Events</a>
           </li>
           <li class="nav-item" ng-if="main.currentUser" ng-click="main.logout()">
             <a class="nav-link">Logout</a>

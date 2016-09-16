@@ -2,19 +2,42 @@ angular
   .module("Londate")
   .controller("EventsController", EventsController);
 
-EventsController.$inject = ["$state", "TokenService", "$rootScope", "Meetup"];
-function EventsController($state, TokenService, $rootScope, Meetup) {
+EventsController.$inject = ["$state", "$rootScope", "Meetup", "$auth", 'User'];
+function EventsController($state, $rootScope, Meetup, $auth, User) {
   var self = this;
+  this.currentUser = $auth.getPayload();
 
-  // this.all = Event.query();
+  this.getUser = function() {
+    if(!self.currentUser) return null;
+    User.get({ id: self.currentUser._id }, function(user) {
+      self.currentUser = user;
+    });
+  }
+
+  this.getUser();
 
   this.mapCenter = { lat: 51.5, lng: -0.1 };
 
-  this.category = 1;
+  this.category = [];
+
+  this.radius = 1;
 
   this.allCategories = [];
 
+  this.savedEvents = [];
+
   this.all = [];
+
+  $rootScope.$on("mapMoved", function(){
+    self.getEvents();
+  })
+
+  $rootScope.$on("saveEvent", function(e, location){
+    $rootScope.$applyAsync(function() {
+      self.currentUser.events.push(location);
+      self.currentUser.$update();
+    });
+  });
 
   navigator.geolocation.getCurrentPosition(function(position) {
     $rootScope.$evalAsync(function() {
@@ -22,33 +45,47 @@ function EventsController($state, TokenService, $rootScope, Meetup) {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
-
-      self.getEvents();
+      self.getCategories();
+      
     });
   });
 
   this.getEvents = function() {
-    Meetup.getEvents({
+    return Meetup.getEvents({
       lat: self.mapCenter.lat,
       lng: self.mapCenter.lng,
-      category: self.category
+      category: self.category.join(","),
+      radius: self.radius
     })
     .then(function(events) {
-      console.log("EVENTS: " + events);
       self.all = events;
+      // console.log(self.all[0].category);
+      // console.log("Categories here ", self.allCategories);
     })
   }
 
-  this.getCategories = function(categories) {
-    Meetup.getCategories({
-      name: name
+  this.getCategories = function() {
+    return Meetup.getCategories({
+      name: self.name
     })
-    .then (function(categories){
+    .then(function(categories){
       self.allCategories = categories;
       console.log(self.allCategories);
     })
   }
 
-  self.getCategories();
+  this.updateCategory = function(categoryId) {
+    var index = this.category.indexOf(categoryId);
+    if(index === -1) {
+      this.category.push(categoryId);
+    }
+    else {
+      this.category.splice(index, 1);
+    }
+
+    this.getEvents();
+  }
+
+  $rootScope.$watch('categoryIds', $rootScope.updateIds, true);
 
 }

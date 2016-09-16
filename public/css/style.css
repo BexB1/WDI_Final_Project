@@ -14,6 +14,11 @@ main {
   min-height: 100%;
 }
 
+/*.profile-pic {
+  z-index: 1000;
+  float: right;
+}*/
+
 /* HELPER CLASSES*/
 
 .centered {
@@ -69,6 +74,10 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.1em;
   color: #FFF;
+} 
+
+hr {
+  margin: 5px;
 }
 
 /* BUTTONS */
@@ -104,15 +113,59 @@ button {
 /* EVENTS PAGE */
 
 .g-map {
-  min-height: 90vh;
+  min-height: 100vh;
 }
 
 #searchbox {
   z-index: 10;
   position: absolute;
   padding: 10px;
-  bottom: 0px;
-  height: 15%;
-  width: 100%;
-  background-color: rgba(194,102,255,0.9);
+  right: 30px;
+  top: 100px;
+  height: 75%;
+  width: 20%;
+  background-color: rgba(255,255,255,0.9);
+}
+
+#searchbox select {
+  margin: 10px;
+}
+
+.search-heading {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.eventGoBtn {
+  color: #000;
+  border: 2px solid gray;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.eventGoBtn:enabled {
+  background-color: orange;
+}
+
+.saveBtn {
+  width: 50%;
+  border: 2px solid black;
+  padding: 5px;
+  color: #000;
+}
+
+.saveBtn:hover {
+  background-color: orange;
+}
+
+.selectOne {
+  border: solid red;
+}
+
+.selectTwo {
+  border: solid blue;
+}
+
+.selectThree {
+  border: solid yellow;
 }

@@ -1,22 +1,16 @@
 angular
   .module("Londate", ['ui.router', 'ngResource', 'angular-jwt', 'satellizer'])
   .constant("API_URL", "http://localhost:3000/api")
-  .config(setupInterceptor)
   .config(oAuthConfig)
   .config(Router);
 
-oAuthConfig.$inject = ["$authProvider"];
-function oAuthConfig($authProvider) {
+oAuthConfig.$inject = ["$authProvider", "API_URL"];
+function oAuthConfig($authProvider, API_URL) {
 
   $authProvider.facebook({
-    url: '/oauth/facebook',
-    clientId: "340220859652020"
+    url: API_URL + '/oauth/facebook',
+    clientId: "1682382068748124"
   });
-}
-
-setupInterceptor.$inject = ["$httpProvider"];
-function setupInterceptor($httpProvider) {
-  return $httpProvider.interceptors.push("AuthInterceptor");
 }
 
 Router.$inject = ["$stateProvider", "$urlRouterProvider"];
@@ -56,7 +50,12 @@ function Router($stateProvider, $urlRouterProvider) {
       url: "/events",
       templateUrl: "/templates/events/index.html",
       controller: "EventsController as events"
-    });
+    })    
+    .state("myEvents", {
+      url: "/events",
+      templateUrl: "/templates/events/myEvent.html",
+      controller: "EventsController as events"
+    })
 
   $urlRouterProvider.otherwise("/");
 }

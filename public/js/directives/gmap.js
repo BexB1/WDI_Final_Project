@@ -1,8 +1,9 @@
 angular
   .module("Londate")
-  .directive("gMap", gMap);
+  .directive("gMap", gMap)
 
-function gMap() {
+gMap.inject = ["$rootScope"];
+function gMap($rootScope) {
   return {
     restrict: 'E',
     replace: true,
@@ -36,19 +37,7 @@ function gMap() {
         draggable: true
       })
 
-      var playerCircle = new google.maps.Circle({
-        map: map,
-        radius: 1609.34,
-        strokeColor: '#ffffff',
-        strokeOpacity: 0.2,
-        fillColor: '#66ff66',
-        fillOpacity: 0.3,
-      })
-
-      playerCircle.bindTo('center', playerMarker, 'position');
-      var playerCircleBounds = playerCircle.getBounds();
-
-      scope.$watch('markers.length', updateMarkers);
+      scope.$watchCollection('markers', updateMarkers);
 
       function updateMarkers() {
 
@@ -60,18 +49,75 @@ function gMap() {
 
         scope.markers.forEach(function(location) {
 
+          // var icon = "";
+
+          // switch (category.location) {
+          //   case 0:
+          //       icon = "red";
+          //       break;
+          //   case 1:
+          //       icon = "blue";
+          //       break;
+          //   case 2:
+          //       icon = "yellow";
+          //       break;
+          // }
+
+          // var icon = "http://maps.google.com/mapfiles/ms/icons/" + icon + ".png";
+          var icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+          console.log(location.group.category);
           if(location.venue) {
             var eventMarker = new google.maps.Marker({
               position: { lat: location.venue.lat, lng: location.venue.lon },
               map: map,
+              icon: icon,
               animation: google.maps.Animation.DROP
+              // icon: new google.maps.MarkerImage(icon)
+            });
+
+            var toDate = new Date(location.time).toLocaleString();
+
+            var contentString = 
+              '<div id="content">'
+              +'<h5>'
+              +'<a href="'
+              +location.event_url
+              +'" target="_blank">'
+              +location.name
+              +"</a>"
+              +"</h5>"
+              +"<br />"
+              +"<h6>"
+              +location.group.name
+              +"</h6><br />"
+              +toDate
+              +"<br />"
+              +"<h6>Attending: "
+              +location.yes_rsvp_count
+              +"</h6>"
+              +"<br />"
+              +location.venue.address_1
+              +"<br />"
+              +'<button class="saveBtn">Save</button>'
+              +'</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+
+            google.maps.event.addDomListener(infowindow, 'domready', function() {
+              var button = document.querySelector('button');
+              button.onclick = function() {
+                $rootScope.$broadcast("saveEvent", location);
+              }
             });
 
             eventMarker.addListener('click', function() {
-              console.log(location);
+              infowindow.open(map, eventMarker);
             });
 
             eventMarkers.push(eventMarker);
+
           }
         });
       }
@@ -82,7 +128,14 @@ function gMap() {
       // Reset markers on drag end
 
       google.maps.event.addListener(playerMarker, 'dragend', function() {
-        updateMarkers();
+        var newCenter = playerMarker.getPosition().toJSON();
+        $rootScope.$applyAsync(function() {
+          scope.center.lat = newCenter.lat;
+          scope.center.lng = newCenter.lng;
+
+          $rootScope.$broadcast("mapMoved");
+        });
+        $rootScope.$broadcast("markerMoved", playerMarker.getPosition().toJSON());
       });
 
       function updateMap() {

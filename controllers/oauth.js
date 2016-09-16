@@ -5,8 +5,8 @@ var secret = require('../config/tokens').secret;
 var qs = require('qs');
 
 function facebook(req, res) {
-
-  request.get({
+console.log(req);
+  request.post({
     url: "https://graph.facebook.com/v2.5/oauth/access_token",
     qs: {
       client_id: process.env.FACEBOOK_API_KEY,

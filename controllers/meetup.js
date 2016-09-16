@@ -16,7 +16,6 @@ function getEvents(req, res) {
   })
   .then(function(response) {
     res.status(200).json(response.results);
-    console.log(response);
   })
   .catch(function(err) {
     console.log(err);
@@ -30,14 +29,12 @@ function getCategories(req, res) {
     url: "https://api.meetup.com/2/categories",
     qs: {
       key: process.env.MEETUP_API_KEY,
-      name: req.query.name,
       sign: true
     },
     json: true
   })
   .then(function(response) {
     res.status(200).json(response.results);
-    console.log(response);
   })
   .catch(function(err) {
     console.log(err);

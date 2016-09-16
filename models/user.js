@@ -5,9 +5,8 @@ var userSchema = new mongoose.Schema({
   image: { type: String, required: false },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  passwordHash: { type: String, required: true },
-  age: { type: Number, required: false },
-  location: { type: String, required: false },
+  passwordHash: { type: String },
+  events: [],
   facebookId: Number,
   twitterId: Number
 });
@@ -55,5 +54,12 @@ userSchema.path('passwordHash')
 userSchema.methods.validatePassword = function(password) {
   return bcrypt.compareSync(password, this.passwordHash);
 }
+
+userSchema.pre('validate', function(next) {
+  if(!this._password && !this.facebookId) {
+    this.invalidate('password', 'A password is required');
+  }
+  next();
+});
 
 module.exports = mongoose.model('User', userSchema);

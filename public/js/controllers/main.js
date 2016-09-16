@@ -2,18 +2,19 @@ angular
   .module("Londate")
   .controller("MainController", MainController);
 
-MainController.$inject = ["$state", "$auth", "$rootScope"];
-function MainController($state, $auth, $rootScope) {
+MainController.$inject = ["$state", "$auth", "$rootScope", "User"];
+function MainController($state, $auth, $rootScope, User) {
   var self = this;
-  
-  this.currentUser = $auth.getPayload();
-  this.errorMessage = null;
 
   this.authenticate = function(provider) {
-    $auth.authenticate(provider);
-
-    this.currentUser = $auth.getPayload();
+    $auth.authenticate(provider)
+         .then(function() {
+      $rootScope.$broadcast("loggedIn");
+      $state.go('events');
+    });
   }
+
+  this.errorMessage = null;
 
   this.logout = function logout() {
     $auth.logout();
