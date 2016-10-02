@@ -12,7 +12,7 @@ console.log(req);
       client_id: process.env.FACEBOOK_API_KEY,
       client_secret: process.env.FACEBOOK_API_SECRET,
       code: req.body.code,
-      redirect_uri: "https://londate.herokuapp.com/#/events"
+      redirect_uri: "https://londate.herokuapp.com"
     },
     json: true
   })

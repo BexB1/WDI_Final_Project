@@ -1,6 +1,6 @@
 angular
   .module("Londate", ['ui.router', 'ngResource', 'angular-jwt', 'satellizer'])
-  .constant("API_URL", "http://localhost:3000/api")
+  .constant("API_URL", "https://localhost:3000/api")
   .config(oAuthConfig)
   .config(Router);
 
