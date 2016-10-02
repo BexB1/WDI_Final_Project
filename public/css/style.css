@@ -54,6 +54,10 @@ main {
   background-size: cover;
 }
 
+.profile-pic {
+  float: right;
+}
+
 /* TYPOGRAPHY */
 
 h1 {
