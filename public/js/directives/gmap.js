@@ -49,23 +49,7 @@ function gMap($rootScope) {
 
         scope.markers.forEach(function(location) {
 
-          // var icon = "";
-
-          // switch (category.location) {
-          //   case 0:
-          //       icon = "red";
-          //       break;
-          //   case 1:
-          //       icon = "blue";
-          //       break;
-          //   case 2:
-          //       icon = "yellow";
-          //       break;
-          // }
-
-          // var icon = "http://maps.google.com/mapfiles/ms/icons/" + icon + ".png";
           var icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-          console.log(location.group.category);
           if(location.venue) {
             var eventMarker = new google.maps.Marker({
               position: { lat: location.venue.lat, lng: location.venue.lon },

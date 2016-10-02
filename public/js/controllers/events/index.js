@@ -14,6 +14,8 @@ function EventsController($state, $rootScope, Meetup, $auth, User) {
     });
   }
 
+  this.toDate = new Date(event.time).toLocaleString();
+
   this.getUser();
 
   this.mapCenter = { lat: 51.5, lng: -0.1 };
@@ -70,7 +72,6 @@ function EventsController($state, $rootScope, Meetup, $auth, User) {
     })
     .then(function(categories){
       self.allCategories = categories;
-      console.log(self.allCategories);
     })
   }
 

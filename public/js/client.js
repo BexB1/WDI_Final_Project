@@ -52,8 +52,8 @@ function Router($stateProvider, $urlRouterProvider) {
       controller: "EventsController as events"
     })    
     .state("myEvents", {
-      url: "/events",
-      templateUrl: "/templates/events/myEvent.html",
+      url: "/events/self",
+      templateUrl: "/templates/events/myEvents.html",
       controller: "EventsController as events"
     })
 
