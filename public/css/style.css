@@ -203,6 +203,11 @@ button {
   border-radius: 0.8em;
   margin: 1em;
 }
+
+.card-title {
+  color: #FFF;
+  background-color: orange;
+}
 /* RESPONSIVE CODE */
 
 @media (max-width: 960px) {

@@ -6,10 +6,10 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">{{ event.venue.address_1 }}</li>
-        <li class="list-group-item">{{ event.time }}/li>
+        <li class="list-group-item">{{ event.time.toDate() }}/li>
       </ul>
       <div class="card-block">
-        <a href="#" class="card-link" src="{{ event.photo_url }}">Go</a>
+        <a href="#" class="card-link" src="{{ event.event_url }}">Go</a>
       </div>
     </a>
   </div>
