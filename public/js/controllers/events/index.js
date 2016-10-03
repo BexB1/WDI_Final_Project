@@ -4,6 +4,15 @@ angular
 
 EventsController.$inject = ["$state", "$rootScope", "Meetup", "$auth", 'User'];
 function EventsController($state, $rootScope, Meetup, $auth, User) {
+
+  $('.eventGoBtn').on('click', function() {
+      $('#searchbox').addClass('hidden');
+  })
+
+  $('#menu-btn').on('click', function() {
+    $('#searchbox').removeClass('hidden');
+  })
+  
   var self = this;
   this.currentUser = $auth.getPayload();
 
@@ -13,8 +22,6 @@ function EventsController($state, $rootScope, Meetup, $auth, User) {
       self.currentUser = user;
     });
   }
-
-  this.toDate = new Date(event.time).toLocaleString();
 
   this.getUser();
 
