@@ -76,6 +76,7 @@ hr {
 /* BUTTONS */
 
 button {
+  z-index: 1000;
   cursor: pointer;
   background: none;
   border: none;
