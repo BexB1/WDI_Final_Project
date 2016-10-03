@@ -1,6 +1,9 @@
 <div id="wrapper">
 
-<h1>Login</h1>
+<h2>Login</h2>
+
+<h3>Don't have an account? Register
+  <a class="nav-link" ui-sref-active="active" ng-if="!main.currentUser" ui-sref="register">here</a>
 
 <form ng-submit="login.submit()">
   <div class="form-group">
