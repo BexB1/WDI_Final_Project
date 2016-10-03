@@ -209,6 +209,11 @@ button {
   color: #FFF;
   background-color: orange;
 }
+
+.card-link {
+  color: #FFF;
+  font-size: 1.5em;
+}
 /* RESPONSIVE CODE */
 
 @media (max-width: 960px) {

@@ -1,12 +1,13 @@
 <div class="card-container">
 
   <div class="card" ng-repeat="event in events.currentUser.events">
+    <img class="card-img-top" src="{{ event.group.group_photo.photo_link }}" alt="Card image cap" width="100px">
       <div class="card-block">
         <h4 class="card-title">{{ event.name }}</h4>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">{{ event.venue.address_1 }}</li>
-        <li class="list-group-item">Fee: {{ event.fee.amount }}</li>
+        <li class="list-group-item">{{ event.group.name }}</li>
       </ul>
       <div class="card-block">
         <a href="#" class="card-link" src="{{ event.event_url }}">Go</a>
