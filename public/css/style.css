@@ -180,6 +180,21 @@ button {
   border: solid yellow;
 }
 
+/* MY EVENTS */
+
+.card-container {
+  margin: 0 auto;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  max-width: 20em;
+  border-radius: 0.8em;
+  margin: 1em;
+}
 /* RESPONSIVE CODE */
 
 @media (max-width: 960px) {
